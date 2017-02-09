@@ -1,21 +1,28 @@
 extends ../layout
 
+block menu
+    +nav("Parking Meter", "dropdown_menu")
+        +nav_item( "index.html", "active" ) Main Counter
+        +nav_item( "contact.html" ) Row Counter
+        +nav_item( "logout.html" ) Logout
+
 block content
-    h1.
-         #{title}
-    ul
-        - each blob, i in blobs
-            li
-                = blob.name
-                = blob.badge
-                = blob.dob
-                = blob.isloved
-                = blob._id
-                form(action='/blobs/#{blob._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
-                    input(type='hidden',value='DELETE',name='_method')
-                    button(type='submit').
-                        Delete
-                p 
-                    a(href='/blobs/#{blob._id}/edit') Edit
-                p
-                    a(href='/blobs/#{blob._id}') Show
+    .panel.panel-success
+        .panel-heading #{title}
+        .panel-body
+            - each blob, i in blobs
+                  .panel.panel-default
+                      .panel-heading 
+                          = blob.name
+                  = blob.badge
+                  = blob.dob
+                  = blob.isloved
+                  = blob._id
+                  form(action='/blobs/#{blob._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
+                     input(type='hidden',value='DELETE',name='_method')
+                     button(type='submit').btn.btn-default Delete 
+                     | &nbsp;
+                     a(href='/blobs/#{blob._id}/edit').btn.btn-default Edit
+                     | &nbsp;
+                     a(href='/blobs/#{blob._id}').btn.btn-default Show
+                     p
